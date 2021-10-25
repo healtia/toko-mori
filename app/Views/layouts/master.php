@@ -11,8 +11,10 @@
 </head>
 
 <body>
-
+    
     <div class="container mt-4">
+        
+    <h1 class="m-4">Mori Toko Sepatu</h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"></a>
@@ -34,7 +36,6 @@
         </nav>
 
         <!-- content -->
-        <h1 class="m-4">Mori Toko Sepatu</h1>
         <?= $this->renderSection('content') ?>
         
     </div>

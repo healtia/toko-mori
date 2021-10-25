@@ -12,11 +12,19 @@ class Sepatu extends BaseController
 	{
 		$this->sepatuModel = new SepatuModel();
 	}
+
 	public function index()
 	{
 		$data 	= $this->sepatuModel->findAll();
 
 		return view('index',['data' => $data]);
+	}
+
+	public function indexadmin()
+	{
+		$data 	= $this->sepatuModel->findAll();
+
+		return view('indexadmin',['data' => $data]);
 	}
 
 	public function create()
@@ -38,7 +46,11 @@ class Sepatu extends BaseController
 		if (!$this->validate([
 			'nama_sepatu'		=> "required",
 			'harga_sepatu'		=> "required",
-			'deskripsi'		=> "required"
+			'deskripsi'			=> "required",
+			'gambar_sepatu'		=> "required",
+			'jenis_sepatu'		=> "required",
+			'merk_sepatu'		=> "required",
+			'tahun_produksi'	=> "required"
 		])) {
 			$validation 	= \Config\Services::validation();
 
@@ -48,7 +60,11 @@ class Sepatu extends BaseController
 		$this->sepatuModel->insert([
 			'nama_sepatu'		=> $this->request->getVar('nama_sepatu'),
 			'harga_sepatu'		=> $this->request->getVar('harga_sepatu'),
-			'deskripsi'		=> $this->request->getVar('deskripsi'),
+			'deskripsi'			=> $this->request->getVar('deskripsi'),
+			'gambar_sepatu'		=> $this->request->getVar('gambar_sepatu'),
+			'jenis_sepatu'		=> $this->request->getVar('jenis_sepatu'),
+			'merk_sepatu'		=> $this->request->getVar('merk_sepatu'),
+			'tahun_produksi'	=> $this->request->getVar('tahun_produksi'),
 		]);
 
 		return redirect()->to('/')->with('status', 'berhasil creating');
@@ -74,7 +90,11 @@ class Sepatu extends BaseController
 		if (!$this->validate([
 			'nama_sepatu'		=> "required",
 			'harga_sepatu'		=> "required",
-			'deskripsi'		=> "required"
+			'deskripsi'			=> "required",
+			'gambar_sepatu'		=> "required",
+			'jenis_sepatu'		=> "required",
+			'merk_sepatu'		=> "required",
+			'tahun_produksi'	=> "required"
 		])) {
 			$validation 	= \Config\Services::validation();
 
@@ -86,7 +106,11 @@ class Sepatu extends BaseController
 		$this->sepatuModel->update($id,[
 			'nama_sepatu'		=> $this->request->getVar('nama_sepatu'),
 			'harga_sepatu'		=> $this->request->getVar('harga_sepatu'),
-			'deskripsi'		=> $this->request->getVar('deskripsi'),
+			'deskripsi'			=> $this->request->getVar('deskripsi'),
+			'gambar_sepatu'		=> $this->request->getVar('gambar_sepatu'),
+			'jenis_sepatu'		=> $this->request->getVar('jenis_sepatu'),
+			'merk_sepatu'		=> $this->request->getVar('merk_sepatu'),
+			'tahun_produksi'	=> $this->request->getVar('tahun_produksi'),
 		]);
 		
 		return redirect()->to('/')->with('status', 'berhasil update');
@@ -97,5 +121,12 @@ class Sepatu extends BaseController
 		$this->sepatuModel->delete($id);
 
 		return redirect()->to('/')->with('status', 'berhasil delete');
+	}
+
+	public function look($id)
+	{
+		$data 	= $this->sepatuModel->find($id);
+
+		return view('post',['dt' => $data]);
 	}
 }

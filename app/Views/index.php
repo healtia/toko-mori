@@ -2,41 +2,19 @@
 
 <?= $this->section('content') ?>
 
-<?php if(session('status')): ?>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Berhasil</strong> <?= session('status'); ?>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="row mt-5">
+    <?php foreach($data as $dt): ?>
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img src="<?= $dt['gambar_sepatu']; ?>" class="card-img-top" alt="<?= $dt['nama_sepatu']; ?> "width="400" height="300">
+            <div class="card-body">
+                <h5 class="card-title"><?= $dt['nama_sepatu']; ?></h5>
+                <p class="card-text"><span style="display:inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 45ch;"><?= $dt['deskripsi']; ?></span></p>
+                <p class="card-text">Harga : <small class="text-muted"><?= $dt['harga_sepatu']; ?></small></p>
+                <a href="<?= BASE_URL('/post/'.$dt['id']); ?>" class="btn btn-primary">Beli</a>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
 </div>
-<?php endif; ?>
-
-<table class="table table-bordered table-hover">
-    <thead class="table table-dark">
-        <tr>
-            <th>#</th>
-            <th>Nama</th>
-            <th>Harga</th>
-            <th>Deskripsi</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($data as $dt): ?>
-        <tr>
-            <th><?= $dt['id']; ?></th>
-            <th><?= $dt['nama_sepatu']; ?></th>
-            <th><?= $dt['harga_sepatu']; ?></th>
-            <th><?= $dt['deskripsi']; ?></th>
-            <th><a href="<?= BASE_URL('/update/'.$dt['id']).'/data'; ?>" class="btn btn-sm btn-warning">Update Data</a>
-            </th>
-            <th>
-                <form action="<?= BASE_URL('/delete-data/'.$dt['id']); ?>" method="post">
-                    <input type="hidden" name="_method" value="delete" />
-                    <button type="submit" class="btn btn-sm btn-danger" >Hapus Data</button>
-                </form>
-            </th>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
 <?= $this->endSection() ?>

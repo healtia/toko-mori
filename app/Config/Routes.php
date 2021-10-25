@@ -33,11 +33,13 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Sepatu::index');
+$routes->get('/admin', 'Sepatu::indexadmin');
 $routes->get('/tambah-data', 'Sepatu::create');
 $routes->post('/tambah-data/proses', 'Sepatu::store');
 $routes->get('/update/(:any)/data', 'Sepatu::update/$1');
 $routes->post('/update-data/proses', 'Sepatu::update_proses');
 $routes->delete('/delete-data/(:num)', 'Sepatu::delete/$1');
+$routes->get('/post/(:num)', 'Sepatu::look/$1');
 
 
 /*
