@@ -119,7 +119,11 @@ class Sepatu extends BaseController
 	public function delete($id)
 	{
 		$this->sepatuModel->delete($id);
-
+		/*
+		$this->sepatuModel->update($id,[
+			'nama_sepatu'		=> 'DELETED',
+		]);
+		*/
 		return redirect()->to('/')->with('status', 'berhasil delete');
 	}
 
@@ -129,4 +133,51 @@ class Sepatu extends BaseController
 
 		return view('post',['dt' => $data]);
 	}
+
+	public function about()
+	{
+		return view('about');
+	}
+	
+	public function daftarsepatu()
+	{
+		$data 	= $this->sepatuModel->findAll();
+
+		return view('daftarsepatu',['data' => $data]);
+	}
+
+	public function search()
+	{
+
+		$request = service('request');
+		$searchData = $request->getGet();
+
+		$search = "";
+		if (isset($searchData) && isset($searchData['search'])) {
+			$search = $searchData['search'];
+		}
+
+		// Get data 
+		$users = new SepatuModel();
+
+		if ($search == '') {
+			$paginateData = $users->paginate(5);
+		} else {
+			$paginateData = $users->select('*')
+				->orLike('nama_sepatu', $search)
+				->orLike('merk_sepatu', $search)    			
+				->paginate(5);
+		}
+
+		$data = [
+			'users' => $paginateData,
+			'pager' => $users->pager,
+			'search' => $search
+		];
+
+		return view('cari', $data);
+	}
+
+	
+    
 }

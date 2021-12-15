@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             <label for="exampleFormControlInput1" class="form-label">Gambar Sepatu</label>
-            <input type="text" class="form-control <?= ($validation->hasError('gambar_sepatu')) ? 'is-invalid' : ''; ?>" name="gambar_sepatu" id="exampleFormControlInput1" value="<?= $data['deskripsi']; ?>">
+            <input type="text" class="form-control <?= ($validation->hasError('gambar_sepatu')) ? 'is-invalid' : ''; ?>" name="gambar_sepatu" id="exampleFormControlInput1" value="<?= $data['gambar_sepatu']; ?>">
             <div id="validationServerUsernameFeedback" class="invalid-feedback">
                 <?= $validation->getError('gambar_sepatu'); ?>
             </div>

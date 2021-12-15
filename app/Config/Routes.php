@@ -32,14 +32,30 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+//daftar sepatu
 $routes->get('/', 'Sepatu::index');
-$routes->get('/admin', 'Sepatu::indexadmin');
-$routes->get('/tambah-data', 'Sepatu::create');
-$routes->post('/tambah-data/proses', 'Sepatu::store');
-$routes->get('/update/(:any)/data', 'Sepatu::update/$1');
-$routes->post('/update-data/proses', 'Sepatu::update_proses');
-$routes->delete('/delete-data/(:num)', 'Sepatu::delete/$1');
+$routes->get('/daftarsepatu', 'Sepatu::daftarsepatu');
+//sepatu crud
+$routes->get('/search', 'Sepatu::search');
+$routes->get('/admin', 'Sepatu::indexadmin', ['filter' => 'suauth']);
+$routes->get('/tambah-data', 'Sepatu::create', ['filter' => 'suauth']);
+$routes->post('/tambah-data/proses', 'Sepatu::store', ['filter' => 'suauth']);
+$routes->get('/update/(:any)/data', 'Sepatu::update/$1', ['filter' => 'suauth']);
+$routes->post('/update-data/proses', 'Sepatu::update_proses', ['filter' => 'suauth']);
+$routes->delete('/delete-data/(:num)', 'Sepatu::delete/$1', ['filter' => 'suauth']);
+//daftar order
+$routes->match(['get','post'],'/order/(:num)', 'Orders::vieworder/$1', ['filter' => 'auth']);
+$routes->post('/sepatuorder/proses', 'Orders::proses', ['filter' => 'auth']);
 $routes->get('/post/(:num)', 'Sepatu::look/$1');
+$routes->get('/about', 'Sepatu::about');
+$routes->get('/keranjang/(:any)', 'Orders::keranjang/$1', ['filter' => 'auth']);
+$routes->get('/keranjangadmin', 'Orders::keranjangadmin', ['filter' => 'suauth']);
+//daftar user
+$routes->match(['get','post'],'login', 'Users::login', ['filter' => 'noauth']);
+$routes->match(['get','post'],'register', 'Users::register', ['filter' => 'noauth']);
+$routes->match(['get','post'],'profile', 'Users::profile', ['filter' => 'auth']);
+$routes->match(['get','post'],'update-profile', 'Users::updateprofile', ['filter' => 'auth']);
+$routes->get('/logout', 'Users::logout');
 
 
 /*
